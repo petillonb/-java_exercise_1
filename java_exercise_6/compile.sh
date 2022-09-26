@@ -1,4 +1,4 @@
-javac -d bin src/freq.java
-java -cp bin freq
+javac -d bin src/refact.java
+java -cp bin refact
 
 
