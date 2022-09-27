@@ -50,7 +50,7 @@ class Freq
 
     @Override
     public String name() {
-        return "freq";
+        return "Freq";
     }
 
     @Override
@@ -117,7 +117,7 @@ class Quit
 
     @Override
     public String name() {
-        return "quit";
+        return "Quit";
     }
 
     @Override
