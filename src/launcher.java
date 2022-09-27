@@ -55,51 +55,55 @@ class Freq
 
     @Override
     public boolean run(Scanner scanner) {
-        Scanner objScan = new Scanner(System.in);
-        System.out.println("Entrez un chemin de fichier...");
-
-        String filepath = objScan.nextLine();
         try {
-            Scanner scanner1 = new Scanner(new File(filepath));
-            Map<String, Integer> dictionary = new HashMap<String, Integer>();
-            String firstword = null;
+            System.out.println("Entrez un chemin de fichier...");
+            String filepath = scanner.nextLine();
+            try {
+                Scanner scanner2 = new Scanner(new File(filepath));
+                HashMap<String, Integer> dictionary = new HashMap<String, Integer>();
+                String firstword = null;
 
-            while (scanner1.hasNextLine()) {
-                String line = scanner1.nextLine();
-                String[] words = line.replaceAll("\n", "").replaceAll("[.,?!;&:]", "").split(" ");
+                while (scanner2.hasNextLine()) {
+                    String line = scanner2.nextLine();
+                    String[] words = line.replaceAll("\n", "").replaceAll("[.,?!;&:]", "").split(" ");
 
-                for (String word : words) {
-                    if (firstword == null) {
-                        firstword = word;
-                    }
-                    if (dictionary.containsKey(word) == true) {
-                        int val = dictionary.get(word);
-                        dictionary.replace(word, val + 1);
-                    } else {
-                        dictionary.put(word, 1);
-                    }
-                }
-            }
-
-            for (int i = 0; i < 3; i++) {
-                String max = firstword;
-                for (String key : dictionary.keySet()) {
-                    if (dictionary.get(max) < dictionary.get(key)) {
-                        max = key;
+                    for (String word : words) {
+                        if (firstword == null) {
+                            firstword = word;
+                        }
+                        if (dictionary.containsKey(word) == true) {
+                            int val = dictionary.get(word);
+                            dictionary.replace(word, val + 1);
+                        } else {
+                            dictionary.put(word, 1);
+                        }
                     }
                 }
-                int count = i + 1;
-                System.out.println(
-                        "Top " + count + " word is " + max + " with " + dictionary.get(max) + " occurrences !");
-                dictionary.remove(max);
-            }
 
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+                for (int i = 0; i < 3; i++) {
+                    String max = firstword;
+                    for (String key : dictionary.keySet()) {
+                        if (dictionary.get(max) < dictionary.get(key)) {
+                            max = key;
+                        }
+                    }
+                    int count = i + 1;
+                    System.out.println(
+                            "Top " + count + " word is " + max + " with " + dictionary.get(max) + " occurrences !");
+                    dictionary.remove(max);
+                }
+
+                scanner.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            return false;
+
+        } catch (Exception exception) {
+            System.err.println("Error: " + exception.toString());
+            return true;
         }
-        objScan.close();
-
     }
 }
 
