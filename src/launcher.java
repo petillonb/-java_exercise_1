@@ -56,7 +56,7 @@ class Freq
     @Override
     public boolean run(Scanner scanner) {
         try {
-            System.out.println("Entrez un chemin de fichier...");
+            // System.out.println("Entrez un chemin de fichier...");
             String filepath = scanner.nextLine();
             try {
                 Scanner scanner2 = new Scanner(new File(filepath));
@@ -133,8 +133,8 @@ class launcher {
         Scanner scanner = new Scanner(System.in);
         String string = "";
         boolean bl = true;
+        System.out.println("Entrez commande");
         while (bl) {
-            System.out.println("Entrez commande");
             string = scanner.nextLine();
             boolean bl2 = true;
             for (Command command : list) {
