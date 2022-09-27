@@ -1,4 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Collection;
+import java.util.HashMap;
 
 class launcher {
     public static void main(String[] args) {
@@ -23,22 +28,24 @@ class launcher {
 
 }
 
-public static void fibonachi(String[] args) {
+class fibo {
+    public static void fibonachi(String[] args) {
 
-    Scanner objScan = new Scanner(System.in);
-    System.out.println("Entrez nombre");
-    int str1 = objScan.nextInt();
+        Scanner objScan = new Scanner(System.in);
+        System.out.println("Entrez nombre");
+        int str1 = objScan.nextInt();
 
-    int f0 = 0;
-    int f1 = 1;
-    int res = 0;
+        int f0 = 0;
+        int f1 = 1;
+        int res = 0;
 
-    for (int i = 1; i < str1; i++) {
-        res = f1 + f0;
-        f0 = f1;
-        f1 = res;
-        System.out.println("i: " + i + " f0: " + f0 + " f1: " + f1);
+        for (int i = 1; i < str1; i++) {
+            res = f1 + f0;
+            f0 = f1;
+            f1 = res;
+            System.out.println("i: " + i + " f0: " + f0 + " f1: " + f1);
+        }
+        System.out.println("fibo:" + res);
+
     }
-    System.out.println("fibo:" + res);
-
 }
