@@ -1,3 +1,3 @@
-javac -d bin src/launcher.java
-java -cp bin launcher
+javac -d bin src/Launcher.java
+java -cp bin Launcher
 
