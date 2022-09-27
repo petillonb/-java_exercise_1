@@ -132,19 +132,19 @@ class launcher {
         List<Command> list = Arrays.asList(arrcommand);
         Scanner scanner = new Scanner(System.in);
         String string = "";
-        boolean bl = true;
+        boolean continueLoop = true;
         System.out.println("Entrez commande");
-        while (bl) {
+        while (continueLoop) {
             string = scanner.nextLine();
-            boolean bl2 = true;
+            boolean unknowCommand = true;
             for (Command command : list) {
                 if (!string.equalsIgnoreCase(command.name()))
                     continue;
-                bl = !command.run(scanner);
-                bl2 = false;
+                continueLoop = !command.run(scanner);
+                unknowCommand = false;
                 break;
             }
-            if (!bl2)
+            if (!unknowCommand)
                 continue;
             System.out.println("Unknown command");
         }
