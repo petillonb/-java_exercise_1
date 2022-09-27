@@ -34,7 +34,7 @@ class Fibo
                 n2 = n3;
                 n3 = n4;
             }
-            System.out.println("fibo(" + n + ") = " + n4);
+            System.out.println(n4);
             return false;
         } catch (Exception exception) {
             System.err.println("Error: " + exception.toString());
@@ -79,7 +79,7 @@ class Freq
                         }
                     }
                 }
-
+                String result = "";
                 for (int i = 0; i < 3; i++) {
                     String max = firstword;
                     for (String key : dictionary.keySet()) {
@@ -88,13 +88,16 @@ class Freq
                         }
                     }
                     int count = i + 1;
-                    System.out.println(
-                            "Top " + count + " word is " + max + " with " + dictionary.get(max) + " occurrences !");
+                    result += max;
+                    if (i < 2) {
+                        result += " ";
+                    }
                     dictionary.remove(max);
                 }
+                System.out.println(result);
 
                 scanner2.close();
-
+                return false;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -131,22 +134,24 @@ class launcher {
         Command[] arrcommand = new Command[] { new Fibo(), new Freq(), new Quit() };
         List<Command> list = Arrays.asList(arrcommand);
         Scanner scanner = new Scanner(System.in);
-        String string = "";
+        String input = "";
         boolean continueLoop = true;
         System.out.println("Entrez commande");
         while (continueLoop) {
-            string = scanner.nextLine();
-            boolean unknowCommand = true;
-            for (Command command : list) {
-                if (!string.equalsIgnoreCase(command.name()))
-                    continue;
-                continueLoop = !command.run(scanner);
-                unknowCommand = false;
-                break;
+            input = scanner.nextLine();
+            if (input != null && input.length() > 0) {
+                boolean unknowCommand = true;
+                for (Command command : list) {
+                    if (input.equalsIgnoreCase(command.name())) {
+                        continueLoop = !command.run(scanner);
+                        unknowCommand = false;
+                        break;
+                    }
+                }
+                if (unknowCommand) {
+                    System.out.println("Unknown command");
+                }
             }
-            if (!unknowCommand)
-                continue;
-            System.out.println("Unknown command");
         }
         scanner.close();
 
