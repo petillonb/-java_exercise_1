@@ -93,7 +93,7 @@ class Freq
                     dictionary.remove(max);
                 }
 
-                scanner.close();
+                scanner2.close();
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -149,5 +149,6 @@ class launcher {
             System.out.println("Unknown command");
         }
         scanner.close();
+
     }
 }
