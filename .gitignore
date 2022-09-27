@@ -1,4 +1,4 @@
 bin/
 out/
-compile.sh/
-text.txt/
+compile.sh
+text.txt
