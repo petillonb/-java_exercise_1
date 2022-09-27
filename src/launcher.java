@@ -12,9 +12,9 @@ class launcher {
         String str1 = objScan.nextLine();
         while (str1.equals("quit") != true) {
             if (str1.equals("fibo") == true) {
-                fibonachi(args);
+                fibo.fibonachi(args);
             } else if (str1.equals("freq") == true) {
-                freqence(args);
+                freq.freqence(args);
             } else {
                 System.out.println("Unknown command");
             }
