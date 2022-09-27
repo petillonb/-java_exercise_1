@@ -1,66 +1,71 @@
+import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.Arrays;
+import java.util.List;
 
-class launcher {
-    public static void main(String[] args) {
-        Scanner objScan = new Scanner(System.in);
-        System.out.println("Entrez text");
-        String str1 = objScan.nextLine();
-        while (str1.equals("quit") != true) {
-            if (str1.equals("fibo") == true) {
-                fibo.fibonachi(args);
-            } else if (str1.equals("freq") == true) {
-                freq.freqence(args);
-            } else {
-                System.out.println("Unknown command");
+interface Command {
+    public String name();
+
+    public boolean run(Scanner var1);
+}
+
+class Fibo
+        implements Command {
+    Fibo() {
+    }
+
+    @Override
+    public String name() {
+        return "fibo";
+    }
+
+    @Override
+    public boolean run(Scanner scanner) {
+        try {
+            System.out.println("Entrez nombre");
+            int n = scanner.nextInt();
+            int n2 = 0;
+            int n3 = 1;
+            int n4 = 0;
+            for (int i = 1; i < n; ++i) {
+                n4 = n3 + n2;
+                n2 = n3;
+                n3 = n4;
             }
-            System.out.println("Entrez commande");
-            str1 = objScan.nextLine();
+            System.out.println("fibo(" + n + ") = " + n4);
+            return false;
+        } catch (Exception exception) {
+            System.err.println("Error: " + exception.toString());
+            return true;
         }
-        objScan.close();
     }
 }
 
-class fibo {
-    public static void fibonachi(String[] args) {
-
-        Scanner objScan = new Scanner(System.in);
-        System.out.println("Entrez nombre");
-        int str1 = objScan.nextInt();
-
-        int f0 = 0;
-        int f1 = 1;
-        int res = 0;
-
-        for (int i = 1; i < str1; i++) {
-            res = f1 + f0;
-            f0 = f1;
-            f1 = res;
-            System.out.println("i: " + i + " f0: " + f0 + " f1: " + f1);
-        }
-        System.out.println("fibo:" + res);
-
+class Freq
+        implements Command {
+    Freq() {
     }
-}
 
-class freq {
-    public static void freqence(String[] args) {
+    @Override
+    public String name() {
+        return "freq";
+    }
+
+    @Override
+    public boolean run(Scanner scanner) {
         Scanner objScan = new Scanner(System.in);
         System.out.println("Entrez un chemin de fichier...");
 
         String filepath = objScan.nextLine();
-
         try {
-            Scanner scanner = new Scanner(new File(filepath));
+            Scanner scanner1 = new Scanner(new File(filepath));
             Map<String, Integer> dictionary = new HashMap<String, Integer>();
             String firstword = null;
 
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
+            while (scanner1.hasNextLine()) {
+                String line = scanner1.nextLine();
                 String[] words = line.replaceAll("\n", "").replaceAll("[.,?!;&:]", "").split(" ");
 
                 for (String word : words) {
@@ -96,5 +101,49 @@ class freq {
         objScan.close();
 
     }
+}
 
+class Quit
+        implements Command {
+    Quit() {
+    }
+
+    @Override
+    public String name() {
+        return "quit";
+    }
+
+    @Override
+    public boolean run(Scanner scanner) {
+        return true;
+    }
+}
+
+class launcher {
+    launcher() {
+    }
+
+    public static void main(String[] arrstring) {
+        Command[] arrcommand = new Command[] { new Fibo(), new Freq(), new Quit() };
+        List<Command> list = Arrays.asList(arrcommand);
+        Scanner scanner = new Scanner(System.in);
+        String string = "";
+        boolean bl = true;
+        while (bl) {
+            System.out.println("Entrez commande");
+            string = scanner.nextLine();
+            boolean bl2 = true;
+            for (Command command : list) {
+                if (!string.equalsIgnoreCase(command.name()))
+                    continue;
+                bl = !command.run(scanner);
+                bl2 = false;
+                break;
+            }
+            if (!bl2)
+                continue;
+            System.out.println("Unknown command");
+        }
+        scanner.close();
+    }
 }
