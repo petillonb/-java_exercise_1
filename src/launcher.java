@@ -126,8 +126,8 @@ class Quit
     }
 }
 
-class launcher {
-    launcher() {
+class Launcher {
+    Launcher() {
     }
 
     public static void main(String[] arrstring) {
